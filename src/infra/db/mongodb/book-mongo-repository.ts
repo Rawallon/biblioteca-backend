@@ -9,5 +9,11 @@ export class BookMongoRepository implements AddBookRepository {
     const insertResult = await bookCollection.insertOne(book)
     return MongoHelper.mapId(insertResult.ops[0])
   }
-  // listAll(): Promise<BookModel[]>
+
+  async listAll (): Promise<BookModel[]> {
+    const bookCollection = await MongoHelper.getCollection('books')
+    const allBooks = await MongoHelper.toArray(bookCollection)
+    const parseId = allBooks.map(book => MongoHelper.mapId(book))
+    return parseId
+  }
 }

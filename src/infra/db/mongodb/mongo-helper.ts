@@ -1,4 +1,4 @@
-import { MongoClient, Collection } from 'mongodb'
+import { MongoClient, Collection, FilterQuery } from 'mongodb'
 
 export const MongoHelper = {
   client: null as any,
@@ -27,5 +27,9 @@ export const MongoHelper = {
   mapId: (data: any): any => {
     const { _id, ...rest } = data
     return { ...rest, id: _id }
+  },
+
+  toArray: async (collection: Collection, query = {} as FilterQuery<any>): Promise<any[]> => {
+    return collection.find(query).toArray()
   }
 }

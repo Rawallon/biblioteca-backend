@@ -48,4 +48,10 @@ describe('Book Mongo Repository', () => {
     expect(httpResponse[0].editor).toBe('valid-editor')
     expect(httpResponse[0].picture).toBe('valid-picture')
   })
+  test('should successfully update book', async () => {
+    const sut = makeSut()
+    const fetchBooks = await sut.listAll()
+    const update = await sut.update(fetchBooks[0].id, { title: 'new-title' })
+    expect(update.title).toBe('new-title')
+  })
 })

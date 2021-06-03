@@ -1,8 +1,9 @@
 import { Router } from 'express'
-import { makeAddBookController } from '../../../db/factories/make-add-book'
-import { makeDeleteBookController } from '../../../db/factories/make-delete-book'
-import { makeGetBooksController } from '../../../db/factories/make-get-books-controller'
-import { makePutBookController } from '../../../db/factories/make-put-book'
+import { makeAddBookController } from '../../../db/factories/add-book-controller'
+import { makeDeleteBookController } from '../../../db/factories/delete-book-controller'
+import { makeGetBooksController } from '../../../db/factories/get-books-controller'
+import { makeGetBookByIdController } from '../../../db/factories/get-by-id-book-controller'
+import { makePutBookController } from '../../../db/factories/put-book-controller'
 import { adaptRoute } from '../adapter/route-adpter'
 
 export default function obrasRoute (router: Router): void {

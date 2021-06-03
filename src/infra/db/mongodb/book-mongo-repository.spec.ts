@@ -28,18 +28,6 @@ describe('Book Mongo Repository', () => {
     expect(httpResponse.editor).toBe('valid-editor')
     expect(httpResponse.picture).toBe('valid-picture')
   })
-  test('should return a book on successfully adding a book', async () => {
-    const sut = makeSut()
-    const httpResponse = await sut.add({
-      title: 'valid-title',
-      editor: 'valid-editor',
-      picture: 'valid-picture',
-      authors: ['valid', 'author']
-    })
-    expect(httpResponse.title).toBe('valid-title')
-    expect(httpResponse.editor).toBe('valid-editor')
-    expect(httpResponse.picture).toBe('valid-picture')
-  })
   test('should successfully fetch added book', async () => {
     const sut = makeSut()
     const httpResponse = await sut.listAll()
@@ -53,5 +41,12 @@ describe('Book Mongo Repository', () => {
     const fetchBooks = await sut.listAll()
     const update = await sut.update(fetchBooks[0].id, { title: 'new-title' })
     expect(update.title).toBe('new-title')
+  })
+  test('should successfully delete book', async () => {
+    const sut = makeSut()
+    const fetchBooks = await sut.listAll()
+    await sut.delete(fetchBooks[0].id)
+    const newBooks = await sut.listAll()
+    expect(newBooks.length).toBe(0)
   })
 })

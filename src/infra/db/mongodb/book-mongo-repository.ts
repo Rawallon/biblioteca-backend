@@ -1,5 +1,6 @@
 import { ObjectId } from 'bson'
 import { AddBookRepository } from '../../../data/protocols/add-book-repository'
+import { DeleteBookRepository } from '../../../data/protocols/delete-book-repository'
 import { GetBookByIdRepository } from '../../../data/protocols/get-book-by-id-repository'
 import { GetBookRepository } from '../../../data/protocols/get-book-repository'
 import { PutBookRepository } from '../../../data/protocols/put-book-repository'
@@ -13,7 +14,8 @@ export class BookMongoRepository
     AddBookRepository,
     GetBookRepository,
     PutBookRepository,
-    GetBookByIdRepository {
+    GetBookByIdRepository,
+    DeleteBookRepository {
   async add (book: AddBookModel): Promise<BookModel> {
     const bookCollection = await MongoHelper.getCollection('books')
     const insertResult = await bookCollection.insertOne(book)
@@ -43,5 +45,10 @@ export class BookMongoRepository
   async getBookById (bookId: string): Promise<BookModel | null> {
     const bookCollection = await MongoHelper.getCollection('books')
     return await bookCollection.findOne({ _id: new ObjectId(bookId) })
+  }
+
+  async delete (bookId: string): Promise<void> {
+    const bookCollection = await MongoHelper.getCollection('books')
+    await bookCollection.findOneAndDelete({ _id: new ObjectId(bookId) })
   }
 }

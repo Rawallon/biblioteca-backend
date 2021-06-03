@@ -8,6 +8,7 @@ import { adaptRoute } from '../adapter/route-adpter'
 
 export default function obrasRoute (router: Router): void {
   router.get('/obras', adaptRoute(makeGetBooksController()))
+  router.get('/obras/:id', adaptRoute(makeGetBookByIdController()))
   router.post('/obras', adaptRoute(makeAddBookController()))
   router.put('/obras/:id', adaptRoute(makePutBookController()))
   router.delete('/obras/:id', adaptRoute(makeDeleteBookController()))

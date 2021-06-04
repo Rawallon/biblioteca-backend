@@ -5,6 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "start": "ts-node index.ts",
+    "cli": "ts-node ./src/infra/cli/commander/index.ts",
     "test": "jest --passWithNoTests --detectOpenHandles",
     "test:unit": "npm test -- --watch -c ./jest-unit-config.ts",
     "test:integration": "npm test -- --watch -c ./jest-integration-config.ts",
